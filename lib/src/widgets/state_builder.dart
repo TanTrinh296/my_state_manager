@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:my_state_manager/core/observable.dart';
 import 'package:my_state_manager/my_state_manager.dart';
 class StateBuilder<T> extends StatefulWidget {
   final Observable<T> observable;

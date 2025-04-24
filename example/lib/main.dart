@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_state_manager/core/observable.dart';
 import 'package:my_state_manager/my_state_manager.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -55,13 +55,18 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final _counter = Observable<int>(0);
-
-  void _incrementCounter() {
-    _counter.value++;
+class CounterController extends RxController {
+  final count = 0.obs;
+  final counter = Observable<int>(0);
+  void increment() {
+    count.value++;
+    counter.value = counter.value + 2;
   }
 
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final controller = RxControllerStore().put(CounterController());
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -83,9 +88,15 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             StateBuilder(
-              observable: _counter,
-              builder: (_, __) => Text(
-                '${_counter.value}',
+              observable: controller.counter,
+              builder: (_, val) => Text(
+                '$val',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            Obx(
+              builder: () => Text(
+                '${controller.count.value}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             )
@@ -93,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: controller.increment,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
