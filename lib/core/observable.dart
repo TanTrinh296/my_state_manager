@@ -21,12 +21,6 @@ class Observable<T> {
     }
   }
 
-  set call(T newValue) {
-    if (_value != newValue) {
-      _value = newValue;
-      notifyListener();
-    }
-  }
 
   /// Đăng ký lắng nghe thay đổi
   void listen(Listener<T> listener) {
