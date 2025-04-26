@@ -1,5 +1,6 @@
 // src/obx.dart
 import 'package:flutter/widgets.dart';
+import 'package:my_state_manager/core/debug/rx_benchmark.dart';
 import 'package:my_state_manager/core/rx/rx_observable.dart';
 
 class Obx extends StatelessWidget {
@@ -37,6 +38,7 @@ class _ObxWrapperState extends State<_ObxWrapper> {
 
   @override
   Widget build(BuildContext context) {
+    final sw = Stopwatch()..start();
     // Clear old subscriptions
     for (var obs in _subscriptions) {
       obs.unsubscribe(_onChange);
@@ -50,10 +52,10 @@ class _ObxWrapperState extends State<_ObxWrapper> {
         _subscriptions.add(obs);
       }
     };
-
     // Build UI once while tracking RxObservable used
     final built = widget.builder();
-
+    sw.stop();
+    RxBenchmark.trackRebuild(runtimeType.toString());
     // Disable tracking
     RxObservable.registerObserver = null;
 

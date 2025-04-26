@@ -12,7 +12,7 @@ class ProfileController extends RxController {
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final avatar = ''.rx;
-  final isLoading = false.rx;
+  final isLoading = false.debug('Loading');
   @override
   void onInit() {
     _fetchUser();
