@@ -175,6 +175,19 @@ RxControllerStore().clear();
 ```
 
 ---
+## 🧹 Benchmark
+
+```dart
+main(){
+  RxBenchmark.enabled = true;
+  final counter = 0.debug("🧮 Counter");
+  counter.value = 1;
+  counter.value = 2;
+  RxBenchmark.summary();
+}
+```
+
+---
 
 ## 🧪 Dự án ví dụ
 
