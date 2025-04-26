@@ -34,7 +34,7 @@ dependencies:
 ### 🔹 Tạo biến phản ứng (reactive)
 
 ```dart
-final counter = 0.obs;
+final counter = 0.rx;
 final name = RxNullable<String>();
 final list = <String>[].rx;
 ```
@@ -94,7 +94,7 @@ final user = RxAsync<User>(loadData: api.getUser)..load();
 
 RxAsyncBuilder(
   rxAsync: user,
-  builder: (snapshot) {
+  builder: (context, snapshot, refresh) {
     if (snapshot.hasData) return Text(snapshot.data!.name);
     if (snapshot.hasError) return Text("Lỗi xảy ra");
     return CircularProgressIndicator();
