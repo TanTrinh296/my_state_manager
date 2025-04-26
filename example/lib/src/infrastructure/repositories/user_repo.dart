@@ -54,7 +54,8 @@ class UserRepo implements UserInterface {
   }
 
   @override
-  Future<String?> updateAvatar({required int id, required String avatar}) async{
+  Future<String?> updateAvatar(
+      {required int id, required String avatar}) async {
     try {
       await _isar.writeTxn(() async {
         final current = await _isar.users.get(id);
@@ -66,6 +67,28 @@ class UserRepo implements UserInterface {
         return null;
       });
       return avatar;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<User>> searchUser({required String name}) async {
+    await Future.delayed(const Duration(seconds: 2));
+    final users =
+        await _isar.users.where().filter().nameContains(name).findAll();
+    return users;
+  }
+
+  @override
+  Future<bool> deleteUser({required int id}) async {
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      await _isar.writeTxn(() async {
+        final rs = await _isar.users.delete(id);
+        return rs;
+      });
+      return false;
     } catch (e) {
       rethrow;
     }

@@ -1,7 +1,9 @@
+import 'package:example/core/utils/media_helper.dart';
 import 'package:example/src/domain/interfaces/user_interface.dart';
 import 'package:example/src/domain/models/user.dart';
 import 'package:example/src/infrastructure/repositories/user_repo.dart';
 import 'package:example/src/presentation/page/profile/profile_page.dart';
+import 'package:example/src/presentation/page/search/search_page.dart';
 import 'package:example/src/presentation/page/user/child_widgets/add_user_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:my_state_manager/my_state_manager.dart';
@@ -9,6 +11,7 @@ import 'package:my_state_manager/my_state_manager.dart';
 class UserController extends RxController {
   late final RxAsync<List<User>> users;
   final userApi = RxControllerStore().put<UserInterface>(UserRepo());
+  final mediaHelper = RxControllerStore().put(MediaHelper());
   @override
   void onInit() {
     super.onInit();
@@ -31,7 +34,7 @@ class UserController extends RxController {
   }
 
   Future<void> deleteUser(int id) async {
-    // await userApi.deleteUser(id);
+    await userApi.deleteUser(id: id);
     users.refresh();
   }
 
@@ -54,4 +57,7 @@ class UserController extends RxController {
       users.refresh();
     }
   }
+
+  Future<void> goSearchPage() => RxNavigator().pushWithArgs(const SearchPage());
+
 }

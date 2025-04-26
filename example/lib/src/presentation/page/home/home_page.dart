@@ -1,3 +1,4 @@
+import 'package:example/core/utils/media_helper.dart';
 import 'package:example/src/presentation/page/count/counter_controller.dart';
 import 'package:example/src/presentation/page/count/counter_obx_widget.dart';
 import 'package:example/src/presentation/page/user/user_page.dart';
@@ -33,7 +34,12 @@ class _HomeProviderState extends State<HomeProvider> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My State Manager')),
+      appBar: AppBar(title: const Text('Simple User Manager'),actions: [
+        IconButton(onPressed: () {
+          RxControllerStore().find<UserController>().goSearchPage();
+        }, icon: const Icon(Icons.search)),
+
+      ],),
       body: UserAsyncWidget(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

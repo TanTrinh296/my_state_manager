@@ -9,7 +9,6 @@ class ProfileController extends RxController {
   final id = RxNavigator().arguments() as int;
   final userApi = RxControllerStore().find<UserRepo>();
   final user = RxNullable<User>();
-
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final avatar = ''.rx;

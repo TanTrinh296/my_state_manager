@@ -7,4 +7,7 @@ interface class UserInterface {
   Future<User?> addUser({required User user}) => throw UnimplementedError();
   Future<String?> updateAvatar({required int id, required String avatar}) =>
       throw UnimplementedError();
+  Future<List<User>> searchUser({required String name}) =>
+      throw UnimplementedError();
+  Future<bool> deleteUser({required int id}) => throw UnimplementedError();
 }

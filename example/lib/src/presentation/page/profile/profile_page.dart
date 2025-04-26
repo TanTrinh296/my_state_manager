@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:example/core/utils/media_helper.dart';
 import 'package:example/src/presentation/page/profile/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -79,7 +80,8 @@ class ProfilePage extends StatelessWidget {
   }
 
   Future<void> _selectAvatar() async {
-    final result = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final mediaHelp = RxControllerStore().find<MediaHelper>();
+    final result = await mediaHelp.pickImage();
     if (result != null) {
       final controller = RxControllerStore().find<ProfileController>();
       controller.avatar.value = result.path;

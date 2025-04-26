@@ -1,10 +1,9 @@
 import 'dart:io';
 
+import 'package:example/core/utils/media_helper.dart';
 import 'package:example/src/presentation/page/user/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_state_manager/core/extension/rx_extensions.dart';
-import 'package:my_state_manager/core/rx/rx.dart';
 import 'package:my_state_manager/my_state_manager.dart';
 
 class AddUserDialog extends StatefulWidget {
@@ -79,7 +78,8 @@ class _AddUserDialogState extends State<AddUserDialog> {
   }
 
   Future<void> _selectAvatar() async {
-    final result = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final mediaHelp = RxControllerStore().find<MediaHelper>();
+    final result = await mediaHelp.pickImage();
     if (result != null) {
       avatar.value = result.path;
     }

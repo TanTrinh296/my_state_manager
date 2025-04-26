@@ -56,9 +56,7 @@ class UserAsyncWidget extends StatelessWidget {
                       subtitle: Text(user.email),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          // controller.deleteUser(user.id);
-                        },
+                        onPressed: () => controller.deleteUser(user.id),
                       ),
                       onTap: () => controller.goProfile(id: user.id),
                     );
